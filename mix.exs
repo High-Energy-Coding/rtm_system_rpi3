@@ -1,8 +1,8 @@
-defmodule NervesSystemRpi3.MixProject do
+defmodule RtmSystemRpi3.MixProject do
   use Mix.Project
 
-  @github_organization "nerves-project"
-  @app :nerves_system_rpi3
+  @github_organization "High-Energy-Coding"
+  @app :rtm_system_rpi3
   @source_url "https://github.com/#{@github_organization}/#{@app}"
   @version Path.join(__DIR__, "VERSION")
            |> File.read!()
@@ -79,7 +79,7 @@ defmodule NervesSystemRpi3.MixProject do
 
   defp description do
     """
-    Nerves System - Raspberry Pi 3B, 3B+, Zero 2W
+    Nerves System - Raspberry Pi 3A+/3B/3B+ with USB printer support
     """
   end
 
@@ -101,7 +101,7 @@ defmodule NervesSystemRpi3.MixProject do
       links: %{
         "GitHub" => @source_url,
         "REUSE Compliance" =>
-          "https://api.reuse.software/info/github.com/nerves-project/nerves_system_rpi3"
+          "https://api.reuse.software/info/github.com/High-Energy-Coding/rtm_system_rpi3"
       }
     ]
   end
