@@ -12,6 +12,22 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v0.1.0
+
+Initial release of the High-Energy-Coding fork, cut from upstream
+nerves-project/nerves_system_rpi3 v2.1.1.
+
+* Changes
+  * Enable `CONFIG_USB_PRINTER=y` so the kernel's `usblp` driver exposes a USB
+    thermal printer at `/dev/usb/lp0`
+  * Rename the package to `rtm_system_rpi3` and resolve artifacts from
+    GitHub Releases on `High-Energy-Coding/rtm_system_rpi3`
+  * CI runs on GitHub-hosted runners; upstream's S3 source-mirror step (which
+    needs `secrets.AWS_ROLE`) is disabled
+
+Otherwise identical to upstream v2.1.1: Buildroot 2026.05.1, Linux 6.18 with
+Raspberry Pi patches, Erlang/OTP 29.0.4.
+
 ## v2.1.1
 
 This is a security and bug fix release.
