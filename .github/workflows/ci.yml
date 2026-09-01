@@ -5,6 +5,7 @@ name: CI
 
 on: [push]
 
+# Versions match upstream nerves_system_rpi3 v2.1.1, the base of this fork.
 env:
   OTP_VERSION: 29.0.4
   ELIXIR_VERSION: 1.20.2-otp-29
@@ -16,7 +17,7 @@ permissions:
 
 jobs:
   get-br-dependencies:
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: gridpoint-com/actions-nerves-system@v1
@@ -26,13 +27,14 @@ jobs:
           otp-version: ${{ env.OTP_VERSION }}
           elixir-version: ${{ env.ELIXIR_VERSION }}
           nerves-bootstrap-version: ${{ env.NERVES_BOOTSTRAP_VERSION }}
-          push-to-download-site: true
-          download-site-bucket-uri: ${{ vars.DOWNLOAD_SITE_BUCKET_URI }}
-          aws-role: ${{ secrets.AWS_ROLE }}
-          aws-region: ${{ vars.AWS_REGION }}
+          # Upstream pushes Buildroot sources to an S3 download mirror using
+          # secrets.AWS_ROLE / vars.DOWNLOAD_SITE_BUCKET_URI. This fork has no
+          # such bucket, so that step is off; the action then just runs
+          # `make source` and relies on the GitHub Actions cache instead.
+          push-to-download-site: false
   build-system:
     needs: [get-br-dependencies]
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: gridpoint-com/actions-nerves-system@v1
@@ -45,12 +47,15 @@ jobs:
   deploy-system:
     needs: [build-system]
     if: github.ref_type == 'tag'
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v7
       - uses: gridpoint-com/actions-nerves-system@v1
+      # NOTE: this creates a DRAFT release. Nerves' artifact resolver cannot
+      # see drafts, so after this job succeeds you must run:
+      #   gh release edit vX.Y.Z --draft=false
       - name: Deploy nerves_system
         uses: ./.actions/deploy-system
         with:
