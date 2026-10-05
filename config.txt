@@ -14,10 +14,9 @@ kernel=zImage
 # Disable the boot rainbow
 disable_splash=1
 
-# This, along with the Raspberry Pi "x" firmware is needed for the camera
-# to work. The Raspberry Pi "x" firmware is selected via the Buildroot
-# configuration. See Target packages->Hardware handling->Firmware.
-gpu_mem=192
+# Headless (the label printer and the fulfillment hub). 192 MB of a 3A+'s
+# 512 MB was reserved for a GPU nobody uses; 16 is the minimum.
+gpu_mem=16
 
 # Enable I2C, SPI, and audio
 dtparam=i2c_arm=on

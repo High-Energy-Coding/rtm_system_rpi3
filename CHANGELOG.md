@@ -12,6 +12,15 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v0.2.0
+
+* Ghostscript (with CUPS, for the `appleraster` device) for the fulfillment
+  hub's walk-away URF on the Pi (print-and-cut M3a). `openjpeg` and `jbig2dec`
+  come with it: Buildroot only builds gs's PDF interpreter when both are
+  present.
+* `gpu_mem=16`: headless boards get 176 MB back.
+* The label printer stays on v0.1.0 until it chooses to move.
+
 ## v0.1.0
 
 Initial release of the High-Energy-Coding fork, cut from upstream

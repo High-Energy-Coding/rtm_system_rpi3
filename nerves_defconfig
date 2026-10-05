@@ -57,6 +57,12 @@ BR2_PACKAGE_CA_CERTIFICATES=y
 BR2_PACKAGE_LIBP11=y
 BR2_PACKAGE_UNIXODBC=y
 BR2_PACKAGE_CAIRO=y
+BR2_PACKAGE_CUPS=y
+BR2_PACKAGE_GHOSTSCRIPT=y
+# openjpeg + jbig2dec: Buildroot only passes --with-pdf to ghostscript when
+# both are present; without them gs 10.x has no PDF interpreter at all.
+BR2_PACKAGE_JBIG2DEC=y
+BR2_PACKAGE_OPENJPEG=y
 BR2_PACKAGE_DTC=y
 BR2_PACKAGE_DTC_PROGRAMS=y
 BR2_PACKAGE_LIBMNL=y
